@@ -14,29 +14,33 @@ export const Content = styled('div')`
     justify-content: space-between;
     background-color: #FFF;
     max-width: 600px;
-    min-height: 60vh;
+    width: 100%;
+    height: 80vh;
     padding: 2rem;
+    margin: 2rem;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
     border-radius: 8px;
 `
 
 export const Title = styled('h2')`
     font-weight: 600;
-    margin-bottom: 2rem;
 `
 
 export const MessageContainer = styled('div')`
     display: flex;
     flex: 1;
     flex-direction: column;
+    margin-top: 0.5rem;
 `
 
 export const Message = styled('p')<{sended: boolean}>`
     background-color: #fa7878;
     margin-bottom: 0.5rem;
     padding: 0.5rem 0.5rem;
+    word-wrap: break-word;
     border-radius: 4px;
     text-align: left;
+    width: 100%;
     ${props => props.sended &&
         `
             background-color: #55ff99;
@@ -53,7 +57,9 @@ export const Form = styled('form')`
 export const Input = styled('input')`
     outline: none;
     font-size: 0.9rem;
+    width: 100%;
     color: rgba(0,0,0,0.7);
+    margin-right: 0.5rem;
     border-bottom: 2px solid rgba(0,0,0,0.1);
     &::placeholder {
         color: rgba(0, 0, 0, 0.5)
@@ -77,4 +83,8 @@ export const SendButton = styled('button')`
     }
 `
 
-
+export const TypeText = styled('span')`
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9rem;
+    font-weight: 300;
+`

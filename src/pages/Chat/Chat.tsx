@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { 
+    useEffect, 
+    useState
+} from 'react'
 import { useLocation } from 'react-router-dom'
 import SocketIO from '../../services/SocketIO'
 import {
@@ -9,8 +12,10 @@ import {
     Message,
     MessageContainer,
     SendButton,
-    Title
+    Title,
+    TypeText
 } from './styles'
+import { useTitle } from '../../hooks/useTitle'
 
 type MessageProps = {
     owner: number;
@@ -33,10 +38,16 @@ const Chat:React.FC = () => {
 
     const [loading, setLoading] = useState<boolean>(true)
 
+    const [meTyping, setMeTyping] = useState<boolean>(false)
+    const [typing, setTyping] = useState<boolean>(false)
+
     const { state } = useLocation()
+    
+    useTitle(`Chat with ${otherUser?.nickname}`)
 
     const handleType = (text: string) => {
         setMessage(text)
+        onChangeTyping(text)
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -53,7 +64,7 @@ const Chat:React.FC = () => {
         setMessages((oldValue)=>[...oldValue, newMessage])
 
         socket.sendMessage(message)
-        setMessage('')
+        handleType('')
     }
 
     const callbackReceiveMessage = (data: any) => {
@@ -68,6 +79,21 @@ const Chat:React.FC = () => {
         }
     }
 
+    const callbackTyping = (data: any) => {
+        const { to, from, typing } = data
+        if(to===me?.id && from === otherUser?.id){
+            setTyping(typing)
+        }
+    }
+
+    const onChangeTyping = (text: string) => {
+        if((!meTyping && text) || (meTyping && !text) ){
+            const isTyping = !!text
+            setMeTyping(isTyping)
+            socket.sendTyping(isTyping)
+        }
+    }
+
     useEffect(()=>{
         const userLocal = JSON.parse(localStorage.getItem('chat-client:user-id') || '') as User
         setMe(userLocal)
@@ -76,7 +102,9 @@ const Chat:React.FC = () => {
         setOtherUse(user)
 
         setLoading(false)
-        
+
+        const title = otherUser ? `Chat with ${otherUser.nickname}` : 'Chat'
+
     },[])
 
     useEffect(()=> {
@@ -84,6 +112,7 @@ const Chat:React.FC = () => {
            socket.joinChat(me.id, otherUser.id)
 
            socket.receiveMessage(callbackReceiveMessage)
+           socket.receiveTyping(callbackTyping)
         }
     }, [me, otherUser])
 
@@ -95,6 +124,10 @@ const Chat:React.FC = () => {
         <Container>
             <Content>
                 <Title> Chat with {otherUser?.nickname}</Title>
+                {
+                    typing && 
+                    <TypeText>Typing...</TypeText>
+                }
                 <MessageContainer>
                     {
                         messages.map(message =>(

@@ -14,9 +14,11 @@ export const Content = styled('div')`
     justify-content: space-between;
     background-color: #FFF;
     max-width: 600px;
+    width: 100%;
     min-height: 40vh;
     max-height: 60vh;
     padding: 2rem;
+    margin: 2rem;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
     border-radius: 8px;
 `
@@ -42,7 +44,7 @@ export const UserCard = styled('div')`
     padding: 0.5rem 0.5rem;
     border-radius: 4px;
     text-align: left;
-    width: 200px;
+    width: 100%;
     cursor: pointer;
     &:hover {
         background-color: #00ff00;

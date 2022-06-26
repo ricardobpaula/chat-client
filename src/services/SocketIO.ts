@@ -38,5 +38,19 @@ export default class SocketIO {
             callback(message)
         })
     }
+
+    sendTyping(typing: boolean):void {
+        this.io?.emit('typing', {
+            to: this.to,
+            from: this.from,
+            typing 
+        })
+    }
+
+    receiveTyping(callback: Function):void {
+        this.io?.on('new-typing', (data) => {
+            callback(data)
+        })
+    }
     
 }

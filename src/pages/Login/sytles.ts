@@ -13,8 +13,9 @@ export const Content = styled('div')`
     flex-direction: column;
     justify-content: space-between;
     background-color: #FFF;
-    max-width: 400px;
-    min-height: 40vh;
+    max-width: 600px;
+    width: 100%;
+    min-height: 50vh;
     padding: 2rem;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
     border-radius: 8px;
@@ -89,6 +90,7 @@ export const Button = styled('input')`
 export const SignUpButton = styled('a')`
     cursor: pointer;
     font-size: 0.9rem;
+    margin-top: 0.5rem;
     text-decoration-line: underline;
 `
 

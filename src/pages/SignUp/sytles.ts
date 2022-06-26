@@ -14,6 +14,7 @@ export const Content = styled('div')`
     justify-content: space-between;
     background-color: #FFF;
     max-width: 600px;
+    width: 100%;
     min-height: 50vh;
     padding: 2rem;
     box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
@@ -89,6 +90,7 @@ export const Button = styled('input')`
 export const LoginButton = styled('a')`
     cursor: pointer;
     font-size: 0.9rem;
+    margin-top: 0.5rem;
     text-decoration-line: underline;
 `
 
