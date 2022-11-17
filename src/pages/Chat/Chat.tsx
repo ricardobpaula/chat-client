@@ -103,8 +103,6 @@ const Chat:React.FC = () => {
 
         setLoading(false)
 
-        const title = otherUser ? `Chat with ${otherUser.nickname}` : 'Chat'
-
     },[])
 
     useEffect(()=> {
